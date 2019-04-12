@@ -65,3 +65,5 @@ end
 gem "devise", "~> 4.6"
 
 gem "omniauth-facebook", "~> 5.0"
+
+gem "haml"
