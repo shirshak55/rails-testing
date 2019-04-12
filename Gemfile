@@ -5,6 +5,10 @@ ruby '2.6.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
+
+# Handle Environment Variable in Development
+gem 'dotenv-rails', groups: [:development, :test]
+
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -57,5 +61,5 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
 end
-
+  
 gem "devise", "~> 4.6"
