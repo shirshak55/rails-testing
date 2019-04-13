@@ -10,12 +10,7 @@
         "allowJs": true,
         "jsx": "react",
         "esModuleInterop": true,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["resources/js/*"]
-        }
+        "baseUrl": "."
     },
-    "include": [
-        "./app/js/main"
-    ],
+    "include": ["./app/js/main.tsx", "./app/js/index.d.ts"]
 }

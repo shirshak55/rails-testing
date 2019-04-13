@@ -8,8 +8,11 @@
     = csrf_meta_tags
     = csp_meta_tag
     
-    %script{src: getAsset('main.js')}
-    %script{src: getAsset('vendor-main.js')}
+  %link{href: 'https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700"', rel: "stylesheet"}
 
   %body
     #app
+
+    %script{src: getAsset('main.js')}
+    %script{src: getAsset('runtime.js')}
+    %script{src: getAsset('vendors.js')}
