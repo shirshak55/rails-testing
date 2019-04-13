@@ -13,12 +13,33 @@ class User < ApplicationRecord
 	  end
 	end
 
+	after_create :send_admin_mail
+	
+  def send_admin_mail
+    puts 'Send Facebook Group Admin'
+  end
+
 	def self.from_omniauth(auth)
 	  where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
 	    user.email = auth.info.email
 	    user.password = Devise.friendly_token[0,20]
+	    user.provider = auth.provider
 	    user.name = auth.info.name   
 	    user.image = auth.info.image 
 	  end
 	end
+
+  def active_for_authentication? 
+    super && approved?  || self.is_admin
+  end 
+  
+  def inactive_message 
+    approved? ? super : :not_approved
+  end
+
+  scope :unapproved, -> { where(approved: false) } 
+  
+  def is_admin
+  	return self.id === 1
+  end
 end

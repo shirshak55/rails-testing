@@ -1,0 +1,24 @@
+<table class="table table-striped" id="manage-users">
+  <thead>
+    <tr>
+      <th> Name</th>
+      <th>Email</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- @users.each do |user| %>
+      <tr id="user-<%= user.id %>">
+        <td>
+          <%= user.name %>
+        </td>
+        <td>
+          <%= user.email %>
+        </td>
+        <td class="status">
+          <%= user.approved ? "Approved" : check_box_tag('approved', true, false) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

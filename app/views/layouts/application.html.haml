@@ -1,0 +1,15 @@
+!!!
+%html
+  %head
+    %title Enliv Task
+  
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+      
+    = csrf_meta_tags
+    = csp_meta_tag
+    
+    %script{src: getAsset('main.js')}
+    %script{src: getAsset('vendor-main.js')}
+
+  %body
+    #app

@@ -1,4 +1,4 @@
-class HomeControllerController < ApplicationController
+class HomeController < ApplicationController
 	def index
 		@title = "Welcome to Enliv Task"
 	end
