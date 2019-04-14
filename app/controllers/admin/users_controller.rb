@@ -5,17 +5,19 @@ class Admin::UsersController < ApplicationController
 
   def index
     if params[:unapproved]
-      @unapproved_users = User.unapproved
+      @users = User.unapproved
     else
       @users = User.all
     end
+
+    render :json => @users
   end
 
   def approve 
     uid = params[:id]
     if uid
-      user = User.find_by(id: uid)
-      user.approved = true
+      user = User.find_by(uid: uid)
+      user.admin_approved = true
       user.save
 
       Devise::Mailer.confirmation_instructions(user, user.confirmation_token).deliver

@@ -3,7 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable,
-         :omniauthable, :omniauth_providers => [:facebook]
+				 :omniauthable, :omniauth_providers => [:facebook]
+				 
+	after_create :send_admin_mail
 
 	def self.new_with_session(params, session)
 	  super.tap do |user|
@@ -13,8 +15,6 @@ class User < ApplicationRecord
 	  end
 	end
 
-	after_create :send_admin_mail
-	
   def send_admin_mail
     puts 'Send Facebook Group Admin'
   end
@@ -34,6 +34,10 @@ class User < ApplicationRecord
 	end 
 
 	scope :unapproved, -> { where(approved: false) } 
+
+	def send_confirmation_notification?
+		false
+	end
   
   def is_admin
   	return self.id === 1
