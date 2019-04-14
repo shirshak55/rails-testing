@@ -1,6 +1,8 @@
 # README
 
-Task Assignment by HR Department of Enliv
+-   Ruby version
+    2.6
 
-* Ruby version
-2.6
+```
+cp .env.example .env
+```
