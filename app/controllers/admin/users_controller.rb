@@ -17,7 +17,7 @@ class Admin::UsersController < ApplicationController
     uid = params[:id]
     if uid
       user = User.find_by(uid: uid)
-      user.admin_approved = true
+      user.approved = true
       user.save
 
       Devise::Mailer.confirmation_instructions(user, user.confirmation_token).deliver

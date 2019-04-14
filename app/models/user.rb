@@ -30,7 +30,7 @@ class User < ApplicationRecord
 	end
 
   def active_for_authentication? 
-    self.is_admin || (super && approved? && active? && admin_active?)
+    self.is_admin || (super && approved?)
 	end 
 
 	scope :unapproved, -> { where(approved: false) } 

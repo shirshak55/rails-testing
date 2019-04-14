@@ -31,8 +31,6 @@ ActiveRecord::Schema.define(version: 2019_04_12_155607) do
     t.string "name"
     t.text "image"
     t.boolean "approved", default: false, null: false
-    t.boolean "admin_approved", default: false, null: false
-    t.index ["admin_approved"], name: "index_users_on_admin_approved"
     t.index ["approved"], name: "index_users_on_approved"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
