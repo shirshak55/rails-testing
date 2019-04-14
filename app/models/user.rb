@@ -30,7 +30,7 @@ class User < ApplicationRecord
 	end
 
   def active_for_authentication? 
-    super && approved?  || self.is_admin
+    self.is_admin || (super && approved?)
   end 
   
   def inactive_message 

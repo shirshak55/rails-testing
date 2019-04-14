@@ -4,10 +4,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.persisted?
       sign_in @user, :event => :authentication
-      redirect_to root_path(message: 'Succesfull')
+      redirect_to root_path(message: 'Succesfully Logged In')
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"]
-       redirect_to root_path(message: 'Error on Login')
+       redirect_to root_path(message: 'Error on Persisting Info')
     end
   end
 

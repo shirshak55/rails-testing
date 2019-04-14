@@ -18,7 +18,7 @@ class Admin::UsersController < ApplicationController
       user.approved = true
       user.save
     end
-    render :json => {:message => 'Successfull'}
+    redirect_to root_path(message: 'Succesfully Activated')
   end
 
    def disapprove 
@@ -28,14 +28,13 @@ class Admin::UsersController < ApplicationController
       user.approved = false
       user.save
     end
-    render :json => {:message => 'Successfull'}
+    redirect_to root_path(message: 'Succesfully Unactivated')
   end
 
   private
   def verify_admin
     unless current_user.is_admin
-      flash.now[:warning] = "You do not have permission to be here."
-      redirect_to root_path
+      redirect_to root_path(message: 'You do not have permission to go admin side.')
     end
   end
 end
