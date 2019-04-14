@@ -61,5 +61,9 @@ Rails.application.configure do
 
   # Default action mailer settings
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = {host: '0.0.0.0:1025'}
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  ActionMailer::Base.smtp_settings = {
+    address:              'localhost',
+    port:                 1025,
+  }
 end
