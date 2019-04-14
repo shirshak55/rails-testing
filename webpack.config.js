@@ -3,7 +3,7 @@ require('dotenv').config()
 const path = require('path')
 const WebpackNotifierPlugin = require('webpack-notifier')
 const ManifestPlugin = require('webpack-manifest-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (env, argv) => {
     const hmr = process.argv.includes('--hot')
@@ -36,10 +36,7 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.css$/,
-                    use: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: [{ loader: 'css-loader', options: { importLoaders: 1 } }, 'postcss-loader'],
-                    }),
+                    use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader'],
                 },
                 {
                     test: /\.(png|jpe?g|gif)$/,
@@ -84,8 +81,7 @@ module.exports = (env, argv) => {
         resolve: {
             extensions: ['.js', '.jsx', '.tsx', '.ts'],
             alias: {
-                '@': path.resolve(__dirname, 'app', 'js'),
-                '@images': path.resolve(__dirname, 'app/js/images'),
+                '@': path.resolve(__dirname, 'app/js/'),
             },
         },
         plugins: [
@@ -94,6 +90,10 @@ module.exports = (env, argv) => {
                 fileName: `manifest.json`,
                 publicPath: assetPath,
                 writeToFileEmit: true,
+            }),
+            new MiniCssExtractPlugin({
+                filename: 'styles.css',
+                chunkFilename: 'styles.css',
             }),
         ],
         optimization: {
@@ -110,6 +110,9 @@ module.exports = (env, argv) => {
         },
         devServer: {
             contentBase: path.resolve(__dirname, 'public'),
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            },
             watchOptions: {
                 aggregateTimeout: 300,
                 poll: 1000,

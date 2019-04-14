@@ -1,18 +1,40 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { render } from 'react-dom'
-import Alert from '@kiwicom/orbit-components/lib/Alert'
-import Card, { CardSection } from '@kiwicom/orbit-components/lib/Card'
-import '@css/tailwind.css'
+import '@/css/tailwind.css'
+import './bootstrap'
+import Home from '@/components/Home'
+import Dashboard from '@/components/Dashboard'
 
 function App() {
-    return (
-        <Box>
-            <Alert>Please Login with Facebook before moving ahead</Alert>
+    let [isLoggedIn, setIsLoggedIn] = useState(false)
+    let [loggedOutPath, setLoggedOutPath] = useState('')
+    let [name, setName] = useState('')
 
-            <Card>
-                <CardSection>Hello World!</CardSection>
-            </Card>
-        </Box>
+    useEffect(() => {
+        ;(async () => {
+            try {
+                const response = await axios.get('/login/status')
+                const { status, name, logout_path } = response.data
+
+                if (status === 'logged_in') {
+                    setName(name)
+                    setIsLoggedIn(true)
+                }
+
+                if (status === 'logged_out') {
+                    setIsLoggedIn(false)
+                    setLoggedOutPath(logout_path)
+                }
+            } catch (e) {
+                setIsLoggedIn(false)
+            }
+        })()
+    }, [])
+    return (
+        <>
+            {isLoggedIn && <Dashboard setIsLoggedIn={setIsLoggedIn} />}
+            {!isLoggedIn && <Home />}
+        </>
     )
 }
 

@@ -10,7 +10,12 @@
         "allowJs": true,
         "jsx": "react",
         "esModuleInterop": true,
-        "baseUrl": "."
+        "baseUrl": ".",
+        "skipLibCheck": true,
+        "paths": {
+            "@/*": ["./app/js/*"]
+        }
     },
+    "exclude": ["node_modules"],
     "include": ["./app/js/main.tsx", "./app/js/index.d.ts"]
 }
