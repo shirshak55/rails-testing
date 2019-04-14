@@ -9,5 +9,6 @@ Rails.application.routes.draw do
 	end
 
 	get 'login/status', to: 'login_status#show'
+	
 	devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks",   :sessions => "users/sessions" }
 end

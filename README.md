@@ -4,5 +4,8 @@
     2.6
 
 ```
-cp .env.example .env
+$ cp .env.example .env
+
+# Bootup development server
+$ rails server
 ```
