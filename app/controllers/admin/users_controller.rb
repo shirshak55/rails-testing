@@ -17,7 +17,10 @@ class Admin::UsersController < ApplicationController
       user = User.find_by(id: uid)
       user.approved = true
       user.save
+
+      Devise::Mailer.confirmation_instructions(user, user.confirmation_token).deliver
     end
+
     redirect_to root_path(message: 'Succesfully Activated')
   end
 

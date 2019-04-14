@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
+         :recoverable, :rememberable, :validatable, :confirmable,
          :omniauthable, :omniauth_providers => [:facebook]
 
 	def self.new_with_session(params, session)
@@ -30,14 +30,10 @@ class User < ApplicationRecord
 	end
 
   def active_for_authentication? 
-    self.is_admin || (super && approved?)
-  end 
-  
-  def inactive_message 
-    approved? ? super : :not_approved
-  end
+    self.is_admin || (super && approved? && active? && admin_active?)
+	end 
 
-  scope :unapproved, -> { where(approved: false) } 
+	scope :unapproved, -> { where(approved: false) } 
   
   def is_admin
   	return self.id === 1
